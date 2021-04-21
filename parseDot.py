@@ -1,8 +1,8 @@
-import numpy as np
+from math import sqrt
 
 
 def dist(x1, y1, x2, y2):
-    return np.sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2))
+    return sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2))
 
 
 def getAdjMatrix(filename, ss, ee):
