@@ -1,6 +1,6 @@
 # Lab 7
 
-## (Link to Course Page)[https://www.usna.edu/Users/cs/taylor/courses/si475/hw/navProj.html]
+## [Link to Course Page](https://www.usna.edu/Users/cs/taylor/courses/si475/hw/navProj.html)
 
 Navigation Project
 The basic project description: after initializing your particle cloud in MCL, and reading in some graph information, your program should accept an (x,y) coordinate in the map, and drive there, without running into any walls.
