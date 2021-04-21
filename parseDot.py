@@ -50,6 +50,7 @@ def getAdjMatrix(filename, ss, ee):
 
 		j+=1
 
+
 	'''print locations'''
 
 	j = 0
@@ -61,6 +62,29 @@ def getAdjMatrix(filename, ss, ee):
 			points = points.split(" -- ")
 			combos.append(points)
 		j+=1
+
+	startPoint = "start"
+	endPoint   = "end"
+	closestStart = 100000000000000000
+	closestEnd   = 100000000000000000
+
+	for key in locations:
+		startDist = dist(ss[0],ss[1],locations[key][0],locations[key][1])
+		endDist   = dist(ee[0],ee[1],locations[key][0],locations[key][1])
+
+		if startDist < closestStart:
+			closestStart = startDist
+			startPoint = key
+
+		if endDist < closestEnd:
+			closestEnd = endDist
+			endPoint = key
+	
+	combos.append(["start", startPoint])
+	combos.append(["end", endPoint])
+
+	locations["start"] = ss
+	locations["end"]   = ee
 
 	'''print("combos:")
 	print(combos)'''
@@ -83,11 +107,16 @@ def getAdjMatrix(filename, ss, ee):
 	'''print("matrix:\n")
 	print(adjMax)'''
 
-	print ss
+	'''print ss
 	print ee
+	print locations'''
+
 	return adjMax
 
 start = [0,1]
 end = [0,0]
-print getAdjMatrix("graphA.dot", start, end)
+mat = getAdjMatrix("graphA.dot", start, end)
+
+for x, value in mat.items():
+	print x +": " + str(value) +"\n"
 
