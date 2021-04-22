@@ -8,22 +8,33 @@ def dist(x1, y1, x2, y2):
 def contains(pq, s):
 	val = False
 	for x in pq:
-		if x[2] == s:
+		if x == s:
 			val = True
 	return val
+
+def getPath(parents, node):
+	while node != None:
+		print node
+		node = parents[node]
 
 def dijkstras(matrix, startPoint, endPoint):
 
 	i = 0
 	s = [0, i, startPoint]
 	pq = []
+	visited = [startPoint]
+	parents = {}
+	parents[startPoint] = None
 	while s[2] != endPoint:
-		print(s[2])
-		for key, value in matrix[s[2]].items():
+		#print(s[2])
+		s2 = s[2]
+		for key, value in matrix[s2].items():
 			if value > 0:
-				if not contains(pq, key):
+				if not contains(visited, key):
 					gs1 = s[0] + value
 					pq.append([gs1, i, key])
+					visited.append(key)
+					parents[key] = s2
 					i += 1
 				else:	
 					gs1 = 0
@@ -35,9 +46,12 @@ def dijkstras(matrix, startPoint, endPoint):
 					if gs1 > s[0] + value:
 						gs1 = s[0] + value
 						s1[0] = gs1
+						parents[key] = s2
+		old = s[2]
 		heapq.heapify(pq)
 		s = heapq.heappop(pq)
-	print(s[2])
+
+	getPath(parents, s[2])
 
 def getAdjMatrix(filename, ss, ee):
     f = open(filename, "r")
@@ -147,4 +161,4 @@ def getAdjMatrix(filename, ss, ee):
 start = [0, 1]
 end = [0, 0]
 mat = getAdjMatrix("graphA.dot", start, end)
-dijkstras(mat, start, end)
+dijkstras(mat, "1a", "6b")
