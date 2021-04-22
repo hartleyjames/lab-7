@@ -12,12 +12,63 @@ def contains(pq, s):
 			val = True
 	return val
 
-def getPath(parents, node):
+def getLocations(filename, ss, ee):
+    f = open(filename, "r")
+    contents = f.read()
+
+    contents = contents.split("\n")
+    contents.pop(0)
+    while contents[len(contents) - 1] == "" or contents[len(contents) - 1] == "}":
+        contents.pop()
+    # print(contents)
+
+    i = 0
+    for x in contents:
+        if "=" in x:
+            i += 1
+        else:
+            break
+    # print(contents[i])
+
+    j = 0
+    locations = {}
+    for s in contents:
+        if j == i:
+            break
+
+        name = s.split(" ")
+        while name[0] == "":
+            name.pop(0)
+        name = name[0]
+
+        start = s.index("(")
+        end = s.index(")")
+        val = s[start + 1:end - 1]
+
+        # print val
+        val = val.split(", ")
+
+        coor = [float(val[0]), float(val[1])]
+
+        locations[name] = coor
+
+        j += 1
+
+    '''print locations'''
+
+    locations["start"] = ss
+    locations["end"] = ee
+    return locations
+
+def getPath(parents, node, l):
+	path = []
+	locations = l
 	while node != None:
-		print node
+		path.append([node,locations[node]])
+		print([node,locations[node]])
 		node = parents[node]
 
-def dijkstras(matrix, startPoint, endPoint):
+def dijkstras(matrix, startPoint, endPoint, locations):
 
 	i = 0
 	s = [0, i, startPoint]
@@ -51,7 +102,7 @@ def dijkstras(matrix, startPoint, endPoint):
 		heapq.heapify(pq)
 		s = heapq.heappop(pq)
 
-	getPath(parents, s[2])
+	path = getPath(parents, s[2], locations)
 
 def getAdjMatrix(filename, ss, ee):
     f = open(filename, "r")
@@ -161,4 +212,5 @@ def getAdjMatrix(filename, ss, ee):
 start = [0, 1]
 end = [0, 0]
 mat = getAdjMatrix("graphA.dot", start, end)
-dijkstras(mat, "1a", "6b")
+loc = getLocations("graphA.dot", start, end)
+dijkstras(mat, "1a", "6b", loc)
