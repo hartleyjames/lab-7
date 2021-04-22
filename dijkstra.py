@@ -209,8 +209,8 @@ def getAdjMatrix(filename, ss, ee):
     return adjMax
 
 
-start = [0, 1]
+'''start = [0, 1]
 end = [0, 0]
 mat = getAdjMatrix("graphA.dot", start, end)
 loc = getLocations("graphA.dot", start, end)
-dijkstras(mat, "1a", "6b", loc)
+dijkstras(mat, "1a", "6b", loc)'''
