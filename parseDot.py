@@ -114,5 +114,5 @@ start = [0, 1]
 end = [0, 0]
 mat = getAdjMatrix("graphA.dot", start, end)
 
-for x, value in mat.items():
-    print(x + ": " + str(value) + "\n")
+'''for x, value in mat.items():
+    print(x + ": " + str(value) + "\n")'''
