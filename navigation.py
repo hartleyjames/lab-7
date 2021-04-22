@@ -1,5 +1,6 @@
 import argparse
 from turtleAPI import robot
+from PIDController import AngularSpeedPIDController
 from parseDot import getAdjMatrix
 from dijkstra import dijkstras, getLocations
 
@@ -78,11 +79,20 @@ if __name__ == "__main__":
     for index in range(len(path) - 2):  # len-2 because the last item is None for some reason
         goal = path[index][1]  # goal is a list of x, y coordinates: [x, y]
         # get current odometer position from bot
-        # rbt.getPositionTup()
-        # find distance and angle to goal
+        # cur_pos = rbt.getPositionTup()
+        # find distance to goal
         dist_to_goal = distance(goal, cur_pos)
-        angle_to_goal = newyaw(goal, cur_pos)
-        yaw_error = yawdif(goal, cur_pos)
-        # while not close to goal
-        # if distance is less than .1 meters, stop
-        # update angle error
+        while dist_to_goal > 0.1:
+            # get robot position
+            # cur_pos = rbt.getPositionTup()
+            # find distance and angle to goal
+            dist_to_goal = distance(goal, cur_pos)
+            angle_to_goal = newyaw(goal, cur_pos)
+            yaw_error = yawdif(goal, cur_pos)
+            # get new angular speed to drive
+            angular_speed = apid.updateInputValue(yaw_error)
+            # call drive with new speed
+            # rbt.drive(.5, angular_speed)
+            # if distance is less than .1 meters, stop
+            # update angle error
+    # rbt.stop()
