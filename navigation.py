@@ -24,7 +24,7 @@ def yawdif(goal, curr):
 
 if __name__ == "__main__":
     # create robot
-    # rbt = robot()
+    rbt = robot()
 
     parser = argparse.ArgumentParser()
     parser.add_argument("graph_filename",
@@ -57,8 +57,7 @@ if __name__ == "__main__":
         startpos.pop()
     else:
         # find from bot localizer
-        # startpos = list(rbt.getPositionTup())
-        pass
+        startpos = list(rbt.getMCLPose())
 
     print startpos
 
@@ -79,12 +78,12 @@ if __name__ == "__main__":
     for index in range(len(path) - 2):  # len-2 because the last item is None for some reason
         goal = path[index][1]  # goal is a list of x, y coordinates: [x, y]
         # get current odometer position from bot
-        # cur_pos = rbt.getPositionTup()
+        cur_pos = rbt.getMCLPose()
         # find distance to goal
         dist_to_goal = distance(goal, cur_pos)
         while dist_to_goal > 0.1:
             # get robot position
-            # cur_pos = rbt.getPositionTup()
+            cur_pos = rbt.getMCLPose()
             # find distance and angle to goal
             dist_to_goal = distance(goal, cur_pos)
             angle_to_goal = newyaw(goal, cur_pos)
@@ -92,7 +91,5 @@ if __name__ == "__main__":
             # get new angular speed to drive
             angular_speed = apid.updateInputValue(yaw_error)
             # call drive with new speed
-            # rbt.drive(.5, angular_speed)
-            # if distance is less than .1 meters, stop
-            # update angle error
-    # rbt.stop()
+            rbt.drive(.5, angular_speed)
+    rbt.stop()
