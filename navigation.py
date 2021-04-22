@@ -11,3 +11,9 @@ if __name__ == "__main__":
 
     # get args
     parser.parse_args()
+
+    # parse the graph from the file
+
+    # find shortest path from start node to end node
+
+    # execute the path using drive code from previous project
