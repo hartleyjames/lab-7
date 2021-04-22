@@ -29,6 +29,7 @@ if __name__ == "__main__":
     # parse the graph from the file
     filename = args.graph_filename
     matrix = getAdjMatrix(filename, startpos, args.end)
+    loc = getLocations("graphA.dot", start, end)
 
     # find shortest path from start node to end node
 
